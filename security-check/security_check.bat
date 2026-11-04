@@ -1,4 +1,15 @@
-﻿# =====================================================================
+<# : batch portion
+@echo off
+chcp 65001 >nul
+echo Node.js / Java / Synology security check (read-only)
+echo.
+set "SC_SELF=%~f0"
+powershell -NoProfile -ExecutionPolicy Bypass -Command "Invoke-Expression ([IO.File]::ReadAllText($env:SC_SELF, [Text.Encoding]::UTF8))"
+echo.
+pause
+exit /b
+#>
+# =====================================================================
 #  보안 권고(2026.10.) 대상 소프트웨어 점검 스크립트
 #   - Node.js (CVE-2026-105482 외 3건)
 #   - Oracle Java / GraalVM (eMudhra CA 인증서 신뢰 관련 취약점)
