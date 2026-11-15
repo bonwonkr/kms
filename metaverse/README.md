@@ -32,8 +32,8 @@ ZEP처럼 쓸 수 있게 기능을 직접 만든 것이고, ZEP의 이름·그�
 `metaverse/index.html`을 고친 다음 저장소 루트에서 `node metaverse/build.mjs`를 실행하면 `docs/`가 새로 만들어집니다.
 
 ### Pages 켜기 (저장소 설정, 한 번만)
-GitHub 저장소 → Settings → Pages → Build and deployment
+GitHub 저장소(bonwonkr/kms) → Settings → Pages → Build and deployment
 → Source: **Deploy from a branch** → Branch: 이 코드가 있는 브랜치, 폴더 **/docs** → Save.
-몇 분 뒤 `https://cheongsong-bot.github.io/kms/` 에서 열립니다.
+몇 분 뒤 `https://bonwonkr.github.io/kms/` 에서 열립니다.
 
 브라우저에서 파일을 바로(file://) 열면 혼자 둘러보기 모드로 동작합니다.
