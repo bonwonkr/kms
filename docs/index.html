@@ -111,21 +111,9 @@
   #joy i { position: absolute; left: 50%; top: 50%; width: 46px; height: 46px; margin: -23px 0 0 -23px; border-radius: 50%; background: rgba(255,255,255,.85); box-shadow: 0 2px 8px rgba(0,0,0,.3); }
 
   /* 미션 판 */
-  #mission { position: fixed; left: 62px; top: 12px; width: 236px; background: #fff; border-radius: 14px; box-shadow: 0 4px 16px rgba(0,0,0,.22); z-index: 4; font-size: 13px; overflow: hidden; }
-  #mission .mh { display: flex; align-items: center; gap: 6px; padding: 10px 12px; font-weight: 800; cursor: pointer; }
-  #mission .mh b { margin-left: auto; color: var(--purple); }
-  #mission .mh i { font-style: normal; color: #8a90a0; }
-  #mission ol { margin: 0; padding: 0 12px 6px; list-style: none; max-height: 250px; overflow: auto; }
-  #mission li { padding: 3px 0; display: flex; gap: 6px; color: #3b4150; }
-  #mission li.done span { color: #9aa0ad; text-decoration: line-through; }
-  #mission li small { margin-left: auto; color: #8a90a0; white-space: nowrap; }
-  #mission .mq { border-top: 1px solid var(--line); padding: 8px 12px; color: #5b6170; display: flex; align-items: center; }
-  #mission .mq button { color: var(--purple); font-weight: 700; margin-left: auto; font-size: 12px; }
-  #mission.fold ol, #mission.fold .mq { display: none; }
   /* 대피 훈련 띠 */
   #evacBar { position: fixed; top: 108px; left: calc(52px + (100vw - 52px) / 2); transform: translateX(-50%); background: #e5383b; color: #fff; padding: 8px 10px 8px 16px; border-radius: 999px; font-weight: 800; font-size: 14px; display: none; z-index: 5; white-space: nowrap; box-shadow: 0 4px 14px rgba(229,56,59,.5); }
   #evacBar button { background: #fff; color: #e5383b; border-radius: 999px; padding: 4px 10px; margin-left: 8px; font-weight: 800; font-size: 13px; }
-  .cert { border: 6px double #d9a441; }
   .medal { font-size: 56px; line-height: 1.1; }
   .qopt { text-align: left; }
   .tips { text-align: left; margin: 0 0 10px; padding-left: 20px; color: #3b4150; font-size: 14px; line-height: 1.7; }
@@ -154,7 +142,6 @@
 
   @media (max-width: 760px) {
     #paint { top: 160px; width: 220px; }
-    #mission { top: 116px; width: 210px; }
     #evacBar { top: auto; bottom: 14px; font-size: 12px; }
     #people { display: none; }
     #chat { width: calc(100vw - 72px); }
@@ -172,7 +159,6 @@
 
 <nav id="side">
   <button class="ib" id="bMenu" title="층 바로가기"><svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
-  <button class="ib" id="bMission" title="학교 탐험 미션"><svg viewBox="0 0 24 24"><path d="M5 21V4h11l-1.5 4L16 12H5"/></svg></button>
   <button class="ib" id="bPaint" title="외벽 도색 공사"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="14" height="6" rx="1"/><path d="M17 6h3v5h-8v3"/><rect x="10" y="14" width="4" height="7" rx="1"/></svg></button>
   <button class="ib" id="bEvac" title="화재 대피 훈련" style="color:#e5383b"><svg viewBox="0 0 24 24"><path d="M12 3l9 16H3z"/><path d="M12 10v4M12 17h.01"/></svg></button>
   <div class="sp"></div>
@@ -197,7 +183,7 @@
   <button class="wbtn" id="bPeople" title="참가자"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>1</button>
   <button class="wbtn purple" id="bInvite"><svg viewBox="0 0 24 24"><path d="M10 14a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1"/><path d="M14 10a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1"/></svg><span>초대하기</span></button>
 </div>
-<div id="people"><div class="ptile"><div class="nm"><i></i><span id="pName">나</span></div><div class="face" id="pFace"></div><div class="mic"><svg viewBox="0 0 24 24"><path d="M9 9v3a3 3 0 0 0 5.1 2.1M15 9.3V5a3 3 0 0 0-5.9-.7"/><path d="M19 11a7 7 0 0 1-1.2 3.9M5 11a7 7 0 0 0 11.3 5.5M12 18v3"/><path d="M3 3l18 18"/></svg></div></div></div>
+<div id="people"><div class="ptile"><div class="nm"><i></i><span id="pName">본원이</span></div><div class="face" id="pFace"></div><div class="mic"><svg viewBox="0 0 24 24"><path d="M9 9v3a3 3 0 0 0 5.1 2.1M15 9.3V5a3 3 0 0 0-5.9-.7"/><path d="M19 11a7 7 0 0 1-1.2 3.9M5 11a7 7 0 0 0 11.3 5.5M12 18v3"/><path d="M3 3l18 18"/></svg></div></div></div>
 
 <div id="tools">
   <button class="ib off" id="tMic" title="마이크"><svg viewBox="0 0 24 24"><path d="M9 9v3a3 3 0 0 0 5.1 2.1M15 9.3V5a3 3 0 0 0-5.9-.7"/><path d="M19 11a7 7 0 0 1-1.2 3.9M5 11a7 7 0 0 0 11.3 5.5M12 18v3"/><path d="M3 3l18 18"/></svg></button>
@@ -224,7 +210,6 @@
 <div id="prompt"><kbd>F</kbd><span></span></div>
 <div id="toast"></div>
 <div id="fade"></div>
-<div id="mission"><div class="mh" id="mHead"><span>🗺️ 학교 탐험 미션</span><b id="mCount">0/10</b><i id="mToggle">▾</i></div><ol id="mList"></ol><div class="mq">📝 퀴즈 <b id="qCount" style="margin-left:4px">0/10</b><button id="mReset">처음부터 다시</button></div></div>
 <div id="paint"><div class="ph" id="pHead"><span>🎨 외벽 도색 공사</span><i id="pToggle">▾</i></div><div class="pb">
   <div class="seg" id="pSeg"><button data-m="before">공사 전</button><button data-m="now" class="on">진행 현황</button><button data-m="after">공사 후</button></div>
   <div class="row"><button id="pPlay" title="색이 바뀌는 과정 재생">▶</button><input type="range" id="pDate" min="0" max="10" value="0"></div>
@@ -239,7 +224,6 @@
 <div class="modal" id="evacDone"><div class="box"><h2>✅ 대피 완료!</h2><p id="evacResult"></p>
   <ul class="tips"><li>"불이야!" 크게 외치고 비상벨을 눌러요.</li><li>젖은 수건으로 입과 코를 막고 낮은 자세로 이동해요.</li><li>승강기 대신 계단을 이용해요.</li><li>뛰거나 밀지 말고 선생님 안내에 따라요.</li><li>운동장에 모이면 선생님께 인원을 확인받아요.</li></ul>
   <p style="font-size:12px;margin:0">실제 대피 경로는 학교 소방 대피도와 선생님 안내를 따라요.</p><button class="pbtn" data-close>확인</button></div></div>
-<div class="modal" id="certModal"><div class="box cert"><div class="medal">🏅</div><h2>본원 탐험가 인증서</h2><p id="certTxt"></p><button class="pbtn" data-close>고마워요!</button></div></div>
 
 <div class="modal" id="stairModal"><div class="box"><h2>계단</h2><p id="stairTxt"></p><div class="floorList" id="stairBtns"></div><button class="pbtn gray" data-close>그대로 있기</button></div></div>
 <div class="modal" id="menuModal"><div class="box"><h2>층 바로가기</h2><p>원하는 층의 계단 앞으로 이동해요.</p><div class="floorList" id="menuBtns"></div><button class="pbtn gray" data-close>닫기</button></div></div>
@@ -250,7 +234,7 @@
   <h2>본원초등학교 메타버스</h2>
   <p>2026학년도 교실 배치도로 만든 우리 학교를 걸어서 둘러봐요.<br>같은 주소로 들어온 친구들과 함께 다니며 채팅할 수 있어요.</p>
   <canvas id="preview" width="64" height="88"></canvas>
-  <input id="nm" maxlength="8" placeholder="닉네임을 입력하세요" value="">
+  <input id="nm" maxlength="8" placeholder="닉네임을 입력하세요" value="본원이">
   <div class="chips" id="hairChips"><div class="lab">머리색</div></div>
   <div class="chips" id="shirtChips"><div class="lab">옷 색</div></div>
   <button class="pbtn" id="go">입장하기</button>
@@ -271,12 +255,6 @@ const PUBLIC_RENAME = {
   '시설미화원 휴게실': '관계자실', '탈의실': '관계자실', '등사실': '관계자실', '자료실': '관계자실', '서고': '관계자실',
   '목련반 (특수학급)': '목련반', '해바라기반 (특수학급)': '해바라기반',
 };
-// 학교 탐험 미션 : [방 이름, 미션 내용]
-const MISSIONS = [
-  ['운동장', '운동장에 나가 보기'], ['학교 도서관', '책을 빌리는 도서관 찾기'], ['보건실', '아플 때 가는 보건실 찾기'],
-  ['급식실', '점심을 먹는 급식실 찾기'], ['1-1', '1학년 1반 교실 찾기'], ['교무실', '선생님들이 계신 교무실 찾기'],
-  ['컴퓨터 1실', '컴퓨터 1실 찾기'], ['영어 1실', '영어 1실 찾기'], ['6-1', '6학년 1반 교실 찾기'], ['음악 1실', '꼭대기 층 음악 1실 찾기'],
-];
 // 장소별 퀴즈 : 방 이름 → 문제, 보기, 정답 번호(0부터), 풀이
 const QUIZ = {
   '보건실': { q: '몸이 아프거나 다쳤을 때 가장 먼저 할 일은?', o: ['선생님께 말씀드리고 보건실에 간다', '참고 그냥 수업을 듣는다', '혼자 집에 간다'], a: 0, why: '아프면 꼭 선생님께 먼저 알려요.' },
@@ -931,7 +909,7 @@ function canvasOf(i) {
 }
 const cvs = document.getElementById('game'), ctx = cvs.getContext('2d');
 const $ = (id) => document.getElementById(id);
-const me = { fi: 0, tx: 33, ty: 20, x: 33, y: 20, dir: 'up', moving: false, prog: 0, from: null, to: null, frame: 0, anim: 0, jump: 0, name: '나' };
+const me = { fi: 0, tx: 33, ty: 20, x: 33, y: 20, dir: 'up', moving: false, prog: 0, from: null, to: null, frame: 0, anim: 0, jump: 0, name: '본원이' };
 const SPEED = 5.2;
 let zoom = 1.5, zoomBase = 1.5, follow = true, cam = { x: 0, y: 0 }, path = [], held = [], curRoom, started = false;
 let bubble = null, reaction = null, wantStair = false, prompt = null, transitioning = false;
@@ -1009,7 +987,6 @@ function arrive() {
   if (r !== curRoom) {
     curRoom = r;
     if (r && r.type !== 'stair' && r.type !== 'yard') toast(`📍 ${FLOORS[me.fi].name} · ${norm(r.label)}`);
-    if (r) checkMission(norm(r.label));
   }
   if (me.fi === 0 && dangerSet().has(me.ty * W + me.tx) && performance.now() - paint.lastWarn > 4000) {
     paint.lastWarn = performance.now(); toast('⚠️ 외벽 도색 공사 구역이에요. 다른 길로 다녀요!', 2600);
@@ -1059,13 +1036,19 @@ function update(dt) {
 
 // 층 이동
 function openStairs() {
-  const up = !evac && me.fi + 1 < FLOORS.length, dn = me.fi > 0;
+  const dn = me.fi > 0;
   $('stairTxt').textContent = evac
     ? (dn ? `대피 중이에요! 계단으로 한 층씩 내려가요. 승강기는 타지 않아요.` : `1층이에요! 현관으로 나가 운동장으로 가요.`)
     : `지금은 ${FLOORS[me.fi].name}이에요. 어디로 갈까요?`;
   const b = $('stairBtns'); b.innerHTML = '';
-  if (up) b.appendChild(btn(`▲ ${FLOORS[me.fi + 1].name}으로 올라가기`, () => { closeModals(); changeFloor(me.fi + 1); }));
-  if (dn) b.appendChild(btn(`▼ ${FLOORS[me.fi - 1].name}으로 내려가기`, () => { closeModals(); changeFloor(me.fi - 1); }));
+  if (evac) { // 대피 중에는 한 층씩 내려가기만
+    if (dn) b.appendChild(btn(`▼ ${FLOORS[me.fi - 1].name}으로 내려가기`, () => { closeModals(); changeFloor(me.fi - 1); }));
+  } else {
+    for (let i = FLOORS.length - 1; i >= 0; i--) {
+      if (i === me.fi) { b.appendChild(btn(`${FLOORS[i].name} (지금 여기)`, closeModals, 'pbtn gray')); continue; }
+      b.appendChild(btn(`${i > me.fi ? '▲' : '▼'} ${FLOORS[i].name}으로 ${i > me.fi ? '올라가기' : '내려가기'}`, () => { closeModals(); changeFloor(i); }));
+    }
+  }
   showModal('stairModal');
 }
 function btn(t, fn, cls = 'pbtn') { const e = document.createElement('button'); e.className = cls; e.textContent = t; e.onclick = fn; return e; }
@@ -1256,6 +1239,7 @@ $('bMenu').onclick = () => {
   const b = $('menuBtns'); b.innerHTML = '';
   FLOORS.forEach((f, i) => { const e = btn(f.name + (i === me.fi ? ' (지금 여기)' : ''), () => { closeModals(); if (i !== me.fi) changeFloor(i, true); }, 'pbtn' + (i === me.fi ? ' gray' : '')); b.appendChild(e); });
   b.appendChild(btn('처음 위치(1층 현관 앞)로', () => { closeModals(); goStart(); }, 'pbtn gray'));
+  if (solvedQ.length) b.appendChild(btn(`퀴즈 처음부터 다시 풀기 (${solvedQ.length}/${Object.keys(QUIZ).length} 풂)`, () => { solvedQ = []; store.set('bonwon_quiz', []); closeModals(); toast('퀴즈를 처음부터 다시 풀 수 있어요'); }, 'pbtn gray'));
   showModal('menuModal');
 };
 const EMO = ['👍', '❤️', '😂', '👏', '🎉', '😮', '👋', '🙌'];
@@ -1286,34 +1270,8 @@ const store = {
   get(k, d) { try { const v = JSON.parse(localStorage.getItem(k)); return Array.isArray(v) ? v : d; } catch { return d; } },
   set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch {} },
 };
-let doneM = store.get('bonwon_missions', []), solvedQ = store.get('bonwon_quiz', []);
-const floorOf = (name) => { for (let i = 0; i < floors.length; i++) if (floors[i].rooms.some(r => r.label && norm(r.label) === name)) return FLOORS[i].name; return ''; };
+let solvedQ = store.get('bonwon_quiz', []);
 const quizAt = (r) => !!(r && r.label && QUIZ[norm(r.label)] && !solvedQ.includes(norm(r.label)));
-function drawMissions() {
-  const ol = $('mList'); ol.innerHTML = '';
-  MISSIONS.forEach(([room, text]) => {
-    const li = document.createElement('li'), d = doneM.includes(room);
-    li.className = d ? 'done' : '';
-    li.innerHTML = `${d ? '✅' : '⬜'} <span>${text}</span><small>${floorOf(room)}</small>`;
-    ol.appendChild(li);
-  });
-  $('mCount').textContent = `${doneM.length}/${MISSIONS.length}`;
-  $('qCount').textContent = `${solvedQ.length}/${Object.keys(QUIZ).length}`;
-}
-function checkMission(name) {
-  const m = MISSIONS.find(x => x[0] === name);
-  if (!m || doneM.includes(name)) return;
-  doneM.push(name); store.set('bonwon_missions', doneM); drawMissions();
-  reaction = { e: '🎉', t: 2.4 };
-  toast(`🎉 미션 완료! ${m[1]} (${doneM.length}/${MISSIONS.length})`, 2600);
-  sys(`미션 완료: ${m[1]}`);
-  if (doneM.length === MISSIONS.length) setTimeout(showCert, 900);
-}
-function showCert() {
-  const d = new Date();
-  $('certTxt').innerHTML = `<b>${esc(me.name)}</b> 님은 본원초등학교 곳곳<br>${MISSIONS.length}곳을 모두 찾아낸 멋진 탐험가임을 인증합니다.<br><br>${d.getFullYear()}년 ${d.getMonth() + 1}월 ${d.getDate()}일<br><b>본원초등학교</b>`;
-  showModal('certModal');
-}
 function openQuiz(name) {
   const q = QUIZ[name]; if (!q) return;
   $('qTitle').textContent = `📝 ${name} 퀴즈`; $('qText').textContent = q.q; $('qRes').innerHTML = '';
@@ -1322,14 +1280,11 @@ function openQuiz(name) {
     if (i === q.a) {
       $('qRes').innerHTML = `⭕ <b>정답이에요!</b> ${q.why}`;
       b.querySelectorAll('button').forEach(x => x.disabled = true);
-      if (!solvedQ.includes(name)) { solvedQ.push(name); store.set('bonwon_quiz', solvedQ); drawMissions(); reaction = { e: '👏', t: 2.4 }; sys(`퀴즈 정답: ${name}`); }
+      if (!solvedQ.includes(name)) { solvedQ.push(name); store.set('bonwon_quiz', solvedQ); reaction = { e: '👏', t: 2.4 }; sys(`퀴즈 정답: ${name}`); }
     } else $('qRes').innerHTML = '❌ 다시 생각해 봐요.';
   }, 'pbtn gray qopt')));
   showModal('quizModal');
 }
-$('mHead').onclick = () => { const m = $('mission'); m.classList.toggle('fold'); $('mToggle').textContent = m.classList.contains('fold') ? '▸' : '▾'; };
-$('bMission').onclick = () => { const m = $('mission'); m.style.display = m.style.display === 'none' ? '' : 'none'; };
-$('mReset').onclick = () => { if (!confirm('미션과 퀴즈 기록을 지우고 처음부터 할까요?')) return; doneM = []; solvedQ = []; store.set('bonwon_missions', []); store.set('bonwon_quiz', []); drawMissions(); toast('처음부터 다시 시작해요'); };
 
 // ---------------- 화재 대피 훈련 ----------------
 let evac = null;
@@ -1378,9 +1333,7 @@ $('bEvac').onclick = () => showModal('evacModal');
 $('evacHere').onclick = () => startEvac(false);
 $('evac5').onclick = () => startEvac(true);
 $('evacStop').onclick = () => { stopEvac(); toast('대피 훈련을 그만했어요'); };
-[['🗺️ 학교 탐험 미션', () => { $('mission').style.display = ''; $('mission').classList.remove('fold'); }], ['🚨 화재 대피 훈련', () => showModal('evacModal')]].forEach(([t, fn]) => { const b = document.createElement('button'); b.textContent = t; b.onclick = () => { hidePops(); fn(); }; $('appsPop').appendChild(b); });
-drawMissions();
-if (innerWidth < 760) { $('mission').classList.add('fold'); $('mToggle').textContent = '▸'; }
+[['🚨 화재 대피 훈련', () => showModal('evacModal')]].forEach(([t, fn]) => { const b = document.createElement('button'); b.textContent = t; b.onclick = () => { hidePops(); fn(); }; $('appsPop').appendChild(b); });
 
 // ---------------- 외벽 도색 공사 ----------------
 const paint = { mode: 'now', day: 0, timer: null, lastWarn: 0, dKey: '', danger: new Set() };
@@ -1644,7 +1597,7 @@ function goStart() {
 goStart();
 $('mapName').textContent = '본원초등학교 1층';
 $('go').onclick = () => {
-  me.name = ($('nm').value || '나').trim().slice(0, 8);
+  me.name = ($('nm').value.trim() || '본원이').slice(0, 8);
   $('pName').textContent = me.name;
   $('enter').style.display = 'none';
   if (!started) { started = true; sys('본원초등학교에 오신 것을 환영해요! 방향키로 걸어 보세요.'); toast('📍 1층 · 학교 마당'); connectNet(); }
