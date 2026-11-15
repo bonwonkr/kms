@@ -838,8 +838,50 @@ function onPeers(change) {
   for (const [id, r] of remotes) if (!seen.has(id)) { if (r.ready) addLog("sys", "", 0, `${r.name}님이 나갔어요`); remotes.delete(id); peopleDirty = true; }
 }
 
+/* 웹사이트(GitHub Pages)에서 열렸을 때: Trystero P2P로 같은 room 인터페이스를 흉내 낸다 */
+const P2P_APP = "woorimadang-kms-v1";
+async function connectP2P() {
+  setNet("connecting");
+  let mod;
+  try { mod = await import("./trystero-0.26.0.mjs"); } catch { setNet("solo"); return; }
+  const roomName = (location.hash.slice(1).match(/^[a-z0-9-]{1,32}$/i) || ["village"])[0].toLowerCase();
+  let tr;
+  try { tr = mod.joinRoom({ appId: P2P_APP }, roomName); } catch { setNet("solo"); return; }
+  const st = tr.makeAction("st");
+  const others = new Map();
+  let mine = {}, peersHandler = null, timer = 0;
+  const emitPeers = () => {
+    $("netText").textContent = others.size ? "실시간 연결됨" : "다른 사람 찾는 중";
+    if (peersHandler) peersHandler({
+      peers: [...others].map(([id, pr]) => ({ peer: id, by: null, isMe: false, sameTab: false, kind: "viewer", guest: false, presence: pr, updatedAt: Date.now() })),
+    });
+  };
+  const flush = () => { timer = 0; st.send(mine).catch(() => {}); };
+  tr.onPeerJoin = id => { if (!others.has(id)) others.set(id, {}); st.send(mine, { target: id }).catch(() => {}); emitPeers(); };
+  tr.onPeerLeave = id => { others.delete(id); emitPeers(); };
+  st.onMessage = (data, ctx) => {
+    if (!data || typeof data !== "object" || Array.isArray(data)) return;
+    try { if (JSON.stringify(data).length > 4096) return; } catch { return; }
+    others.set(ctx.peerId, data); emitPeers();
+  };
+  window.addEventListener("pagehide", () => { try { tr.leave(); } catch {} });
+  room = {
+    presence(patch) {
+      mine = { ...mine, ...patch };
+      for (const k of Object.keys(mine)) if (mine[k] === null) delete mine[k];
+      if (!timer) timer = setTimeout(flush, 60);
+      return Promise.resolve();
+    },
+    onPeers(h) { peersHandler = h; return () => {}; },
+    onConnection(h) { setTimeout(() => h(true), 0); return () => {}; },
+  };
+  room.onConnection(ok => { setNet(ok ? "live" : "connecting"); emitPeers(); });
+  room.onPeers(onPeers);
+  sendProfile();
+}
+
 async function connect() {
-  if (!window.claude || typeof window.claude.use !== "function") { setNet("solo"); return; }
+  if (!window.claude || typeof window.claude.use !== "function") { connectP2P(); return; }
   const [r, u] = await Promise.all([
     window.claude.use("room").catch(() => null),
     window.claude.use("user").catch(() => null),

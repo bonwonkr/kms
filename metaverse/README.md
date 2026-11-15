@@ -20,4 +20,20 @@ ZEP처럼 쓸 수 있게 기능을 직접 만든 것이고, ZEP의 이름·그�
 - '근처'·'같은 구역' 채팅은 화면 표시만 거르는 것이라 비밀 대화용은 아닙니다.
 - 음성·화상 통화는 아티팩트 환경에서 WebRTC가 막혀 있어 넣지 않았습니다.
 
-브라우저에서 `index.html`을 바로 열면 혼자 둘러보기 모드로 동작합니다.
+## 무료 웹사이트 버전 (GitHub Pages)
+`docs/` 폴더가 GitHub Pages용 사이트입니다. Claude 로그인 없이 누구나 주소만으로 들어올 수 있습니다.
+- 여러 명 접속은 [Trystero](https://github.com/dmotz/trystero) 0.26.0(MIT)으로 브라우저끼리 직접(P2P, WebRTC) 연결합니다.
+  상대를 찾을 때만 공개 Nostr 중계 서버를 쓰고, 서버 비용·가입이 없습니다.
+- 라이브러리는 `docs/trystero-0.26.0.mjs`로 저장소에 포함했습니다(CDN 의존 없음).
+- 주소 끝에 `#방이름`(영문·숫자·하이픈)을 붙이면 다른 사람들과 섞이지 않는 별도 마을이 됩니다. 예: `.../kms/#team1`
+- 회사·학교 방화벽처럼 WebRTC가 막힌 네트워크에서는 연결되지 않을 수 있습니다(TURN 서버 미사용).
+
+### 고친 뒤 다시 만들기
+`metaverse/index.html`을 고친 다음 저장소 루트에서 `node metaverse/build.mjs`를 실행하면 `docs/`가 새로 만들어집니다.
+
+### Pages 켜기 (저장소 설정, 한 번만)
+GitHub 저장소 → Settings → Pages → Build and deployment
+→ Source: **Deploy from a branch** → Branch: 이 코드가 있는 브랜치, 폴더 **/docs** → Save.
+몇 분 뒤 `https://cheongsong-bot.github.io/kms/` 에서 열립니다.
+
+브라우저에서 파일을 바로(file://) 열면 혼자 둘러보기 모드로 동작합니다.
