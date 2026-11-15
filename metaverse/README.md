@@ -22,14 +22,19 @@ ZEP처럼 쓸 수 있게 기능을 직접 만든 것이고, ZEP의 이름·그�
 
 ## 무료 웹사이트 버전 (GitHub Pages)
 `docs/` 폴더가 GitHub Pages용 사이트입니다. Claude 로그인 없이 누구나 주소만으로 들어올 수 있습니다.
+- `https://bonwonkr.github.io/kms/` : **본원초 메타버스**(공개용). 원본은 `metaverse/bonwon/index.html`.
+  본원초 건물 1~5층·운동장·체육관, 탐험 미션·퀴즈, 화재 대피 훈련, 외벽 도색 공사 표시에
+  여러 명 동시 접속(위치·이름·캐릭터 색·전체 채팅·리액션)을 더했습니다. 미션·퀴즈·대피 훈련 기록은 각자 기기에만 남습니다.
+- `https://bonwonkr.github.io/kms/village/` : 우리마당(위 마을 맵).
+- 접속하면 닉네임·캐릭터 색·위치가 같은 방에 들어온 다른 사람에게 전달되고, WebRTC 특성상 서로의 IP 주소가 상대 브라우저에 보일 수 있습니다.
 - 여러 명 접속은 [Trystero](https://github.com/dmotz/trystero) 0.26.0(MIT)으로 브라우저끼리 직접(P2P, WebRTC) 연결합니다.
   상대를 찾을 때만 공개 Nostr 중계 서버를 쓰고, 서버 비용·가입이 없습니다.
 - 라이브러리는 `docs/trystero-0.26.0.mjs`로 저장소에 포함했습니다(CDN 의존 없음).
-- 주소 끝에 `#방이름`(영문·숫자·하이픈)을 붙이면 다른 사람들과 섞이지 않는 별도 마을이 됩니다. 예: `.../kms/#team1`
+- 주소 끝에 `#방이름`(영문·숫자·하이픈)을 붙이면 다른 사람들과 섞이지 않는 별도 방이 됩니다. 예: `.../kms/#class3-1`
 - 회사·학교 방화벽처럼 WebRTC가 막힌 네트워크에서는 연결되지 않을 수 있습니다(TURN 서버 미사용).
 
 ### 고친 뒤 다시 만들기
-`metaverse/index.html`을 고친 다음 저장소 루트에서 `node metaverse/build.mjs`를 실행하면 `docs/`가 새로 만들어집니다.
+`metaverse/bonwon/index.html`(본원초) 또는 `metaverse/index.html`(우리마당)을 고친 다음 저장소 루트에서 `node metaverse/build.mjs`를 실행하면 `docs/`가 새로 만들어집니다.
 
 ### Pages 켜기 (저장소 설정, 한 번만)
 GitHub 저장소(bonwonkr/kms) → Settings → Pages → Build and deployment
