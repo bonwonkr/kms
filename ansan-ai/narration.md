@@ -49,3 +49,8 @@
 
 - 내레이션 목소리를 Sienna(여성, seed_audio)로 교체, 1.2배속
 - 3번째 문장 길이에 맞춰 지하철역 장면을 0.5초 늘림
+
+## v5 (ansan_story_v5_myvoice_28s.mp4, 약 27.9초)
+
+- 내레이션: 사용자 본인 녹음(34초)으로 Higgsfield 목소리 복제(element voice) 후 seed_audio로 5문장 생성, 1.2배속
+- 영상·자막·그래픽은 v4와 동일
