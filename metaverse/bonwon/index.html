@@ -302,6 +302,8 @@ const QUIZ = {
 // 외벽 도색 공사 (※ 아래 색과 날짜는 예시입니다. 실제 공사 공정표에 맞게 고쳐 주세요)
 //  before: 공사 전 외벽 색, after: 새 외벽 색 (#RRGGBB)
 //  zones: 구역 이름(바꾸지 마세요) · start 시작일 · end 끝난 날 (YYYY-MM-DD)
+// 외벽 도색 공사 표시 켜기/끄기 (false = 창·비계·통제 구역 모두 숨김. 다시 쓰려면 true)
+const PAINT_ON = false;
 const PAINT = {
   title: '외벽 도색 공사',
   before: '#c8b49a',
@@ -1730,6 +1732,7 @@ function zStatus(name) {
 function zFrac(name) { const z = pz.find(q => q.name === name); return z ? (paint.day - z.s + 1) / (z.e - z.s + 1) : 0; }
 // 1층 바깥의 통제 구역 (공사 중인 벽에서 2칸)
 function dangerSet() {
+  if (!PAINT_ON) return paint.danger;
   const key = `${paint.mode}|${paint.day}`;
   if (paint.dKey === key) return paint.danger;
   const set = new Set(), g = floors[0].g;
@@ -1741,6 +1744,7 @@ function dangerSet() {
   paint.dKey = key; paint.danger = set; return set;
 }
 function drawPaint(ox, oy, s, now) {
+  if (!PAINT_ON) return;
   const tiles = paintTiles(me.fi), g = F().g, k = s / 32;
   const st = {}, fr = {}; pz.forEach(z => { st[z.name] = zStatus(z.name); fr[z.name] = zFrac(z.name); });
   // 통제 구역
@@ -1816,6 +1820,7 @@ $('pSeg').querySelectorAll('button').forEach(b => b.onclick = () => { if (paint.
 $('pHead').onclick = () => { const p = $('paint'); p.classList.toggle('fold'); $('pToggle').textContent = p.classList.contains('fold') ? '▸' : '▾'; };
 $('bPaint').onclick = () => { const p = $('paint'); p.style.display = p.style.display === 'none' ? '' : 'none'; };
 paintUI();
+if (!PAINT_ON) { $('paint').style.display = 'none'; $('bPaint').style.display = 'none'; }
 if (innerWidth < 760) { $('paint').classList.add('fold'); $('pToggle').textContent = '▸'; }
 
 // ---------------- 여러 명 함께 둘러보기 (P2P) ----------------
