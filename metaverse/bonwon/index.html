@@ -115,6 +115,17 @@
   #evacBar { position: fixed; top: 108px; left: calc(52px + (100vw - 52px) / 2); transform: translateX(-50%); background: #e5383b; color: #fff; padding: 8px 10px 8px 16px; border-radius: 999px; font-weight: 800; font-size: 14px; display: none; z-index: 5; white-space: nowrap; box-shadow: 0 4px 14px rgba(229,56,59,.5); }
   #evacBar button { background: #fff; color: #e5383b; border-radius: 999px; padding: 4px 10px; margin-left: 8px; font-weight: 800; font-size: 13px; }
   .medal { font-size: 56px; line-height: 1.1; }
+  .cert { border: 6px double #d9a441; }
+  /* 선물 찾기 이벤트 */
+  #giftBar { position: fixed; top: 108px; left: calc(52px + (100vw - 52px) / 2); transform: translateX(-50%); background: linear-gradient(90deg, #ff7a59, #f7b733); color: #fff; padding: 8px 10px 8px 16px; border-radius: 999px; font-weight: 800; font-size: 14px; display: none; z-index: 5; white-space: nowrap; box-shadow: 0 4px 14px rgba(247,120,60,.45); }
+  #giftBar button { background: #fff; color: #e8590c; border-radius: 999px; padding: 4px 10px; margin-left: 8px; font-weight: 800; font-size: 13px; }
+  #giftBar small { display: block; font-size: 11px; font-weight: 700; opacity: .95; }
+  .rank { list-style: none; margin: 0 0 10px; padding: 0; text-align: left; }
+  .rank li { display: flex; gap: 8px; align-items: center; padding: 7px 10px; border-radius: 10px; font-size: 14px; color: #3b4150; }
+  .rank li:nth-child(odd) { background: #f6f7fa; }
+  .rank li.me { background: #eceafd; font-weight: 800; }
+  .rank li b { margin-left: auto; color: var(--purple); }
+  .count3 { font-size: 64px; font-weight: 900; color: #fff; text-shadow: 0 4px 20px rgba(0,0,0,.5); }
   .qopt { text-align: left; }
   .tips { text-align: left; margin: 0 0 10px; padding-left: 20px; color: #3b4150; font-size: 14px; line-height: 1.7; }
 
@@ -142,7 +153,7 @@
 
   @media (max-width: 760px) {
     #paint { top: 160px; width: 220px; }
-    #evacBar { top: auto; bottom: 14px; font-size: 12px; }
+    #evacBar, #giftBar { top: auto; bottom: 14px; font-size: 12px; }
     #people { display: none; }
     #chat { width: calc(100vw - 72px); }
     #chat.hide { display: none; }
@@ -160,6 +171,7 @@
 <nav id="side">
   <button class="ib" id="bMenu" title="층 바로가기"><svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
   <button class="ib" id="bPaint" title="외벽 도색 공사"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="14" height="6" rx="1"/><path d="M17 6h3v5h-8v3"/><rect x="10" y="14" width="4" height="7" rx="1"/></svg></button>
+  <button class="ib" id="bGift" title="선물 찾기 이벤트" style="color:#e8590c"><svg viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="5" rx="1"/><path d="M5 13v8h14v-8M12 8v13M12 8c-1.5-4-6-4-6-1.5S10 8 12 8zM12 8c1.5-4 6-4 6-1.5S14 8 12 8z"/></svg></button>
   <button class="ib" id="bEvac" title="화재 대피 훈련" style="color:#e5383b"><svg viewBox="0 0 24 24"><path d="M12 3l9 16H3z"/><path d="M12 10v4M12 17h.01"/></svg></button>
   <div class="sp"></div>
   <button class="ib on" id="bChat" title="채팅"><svg viewBox="0 0 24 24"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg></button>
@@ -220,6 +232,9 @@
 </div></div>
 <div id="evacBar">🔥 화재 대피 훈련 · <span id="evacTxt"></span> · <span id="evacTime">0:00</span><button id="evacStop">그만하기</button></div>
 <div class="modal" id="quizModal"><div class="box"><h2 id="qTitle">퀴즈</h2><p id="qText"></p><div class="floorList" id="qBtns"></div><p id="qRes" style="margin:12px 0 0"></p><button class="pbtn gray" data-close>닫기</button></div></div>
+<div id="giftBar">🎁 선물 찾기 · <span id="giftScore">0점</span> · 남은 시간 <span id="giftTime">3:00</span><button id="giftStop">그만하기</button><small id="giftLeft"></small></div>
+<div class="modal" id="giftModal"><div class="box"><div class="medal">🎁</div><h2>선물 상자 찾기 이벤트</h2><p>학교 곳곳(1~5층, 운동장)에 숨은 <b>선물 상자</b>를 3분 안에 많이 찾아요! 상자 위로 걸어가면 열려요.<br>🎁 1점 · <b style="color:#d9a441">황금 상자 3점</b><br>같은 방에 있는 사람도 함께 참여해요. 먼저 연 사람이 가져가요!</p><button class="pbtn" id="giftGo">이벤트 시작!</button><p id="giftBest" style="font-size:12px;margin:10px 0 0"></p><button class="pbtn gray" data-close>닫기</button></div></div>
+<div class="modal" id="giftDone"><div class="box cert"><div class="medal" id="giftMedal">🏆</div><h2 id="giftTitle">이벤트 끝!</h2><p id="giftResult"></p><ol class="rank" id="giftRank"></ol><button class="pbtn" id="giftAgain">한 번 더!</button><button class="pbtn gray" data-close>닫기</button></div></div>
 <div class="modal" id="evacModal"><div class="box"><h2>🚨 화재 대피 훈련</h2><p>불이 났다고 생각하고, 바닥의 <b style="color:#1e9e57">초록 화살표</b>를 따라 계단으로 내려가 운동장까지 대피해요. 승강기는 타지 않아요.</p><div class="floorList"><button class="pbtn" id="evac5">5층 6-1 교실에서 시작</button><button class="pbtn" id="evacHere">지금 있는 곳에서 시작</button></div><button class="pbtn gray" data-close>취소</button></div></div>
 <div class="modal" id="evacDone"><div class="box"><h2>✅ 대피 완료!</h2><p id="evacResult"></p>
   <ul class="tips"><li>"불이야!" 크게 외치고 비상벨을 눌러요.</li><li>젖은 수건으로 입과 코를 막고 낮은 자세로 이동해요.</li><li>승강기 대신 계단을 이용해요.</li><li>뛰거나 밀지 말고 선생님 안내에 따라요.</li><li>운동장에 모이면 선생님께 인원을 확인받아요.</li></ul>
@@ -988,6 +1003,7 @@ function arrive() {
     curRoom = r;
     if (r && r.type !== 'stair' && r.type !== 'yard') toast(`📍 ${FLOORS[me.fi].name} · ${norm(r.label)}`);
   }
+  pickGifts();
   if (me.fi === 0 && dangerSet().has(me.ty * W + me.tx) && performance.now() - paint.lastWarn > 4000) {
     paint.lastWarn = performance.now(); toast('⚠️ 외벽 도색 공사 구역이에요. 다른 길로 다녀요!', 2600);
   }
@@ -1032,6 +1048,7 @@ function update(dt) {
   if (bubble && (bubble.t -= dt) <= 0) bubble = null;
   if (reaction && (reaction.t -= dt) <= 0) reaction = null;
   netTick(dt);
+  giftTick();
 }
 
 // 층 이동
@@ -1083,6 +1100,7 @@ function render() {
   ctx.imageSmoothingEnabled = false;
   const now = performance.now() / 1000;
   drawPaint(ox, oy, s, now);
+  drawGifts(ox, oy, s, now);
   // 대피 화살표
   if (evac && evac.path && evac.path.length > 1) {
     const P = evac.path;
@@ -1311,6 +1329,7 @@ function evacPath() {
 function updEvacTxt() { $('evacTxt').textContent = me.fi > 0 ? `${FLOORS[me.fi].name} · 계단으로 내려가요` : '1층 · 운동장으로'; }
 function startEvac(from5) {
   closeModals(); path = [];
+  if (gift) stopGift(true);
   const go = () => {
     evac = { t0: performance.now(), path: [], asked: false };
     evac.path = evacPath() || []; updEvacTxt();
@@ -1333,7 +1352,150 @@ $('bEvac').onclick = () => showModal('evacModal');
 $('evacHere').onclick = () => startEvac(false);
 $('evac5').onclick = () => startEvac(true);
 $('evacStop').onclick = () => { stopEvac(); toast('대피 훈련을 그만했어요'); };
-[['🚨 화재 대피 훈련', () => showModal('evacModal')]].forEach(([t, fn]) => { const b = document.createElement('button'); b.textContent = t; b.onclick = () => { hidePops(); fn(); }; $('appsPop').appendChild(b); });
+[['🎁 선물 찾기 이벤트', openGiftModal], ['🚨 화재 대피 훈련', () => showModal('evacModal')]].forEach(([t, fn]) => { const b = document.createElement('button'); b.textContent = t; b.onclick = () => { hidePops(); fn(); }; $('appsPop').appendChild(b); });
+
+// ---------------- 미니게임: 선물 상자 찾기 이벤트 ----------------
+// 시작한 사람이 정한 번호(seed)로 모두가 같은 자리에 상자를 놓고, 먼저 연 사람이 가져감
+const GIFT_SEC = 180, GIFT_PER_FLOOR = [6, 3, 3, 3, 3]; // 층별 상자 수 (1층은 운동장 포함)
+let gift = null;
+const store2 = { get(k, d) { try { const v = JSON.parse(localStorage.getItem(k)); return v ?? d; } catch { return d; } }, set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch {} } };
+function rngOf(seed) { let a = seed >>> 0; return () => { a = (a + 0x6D2B79F5) >>> 0; let t = a; t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
+// 각 층에서 계단에서 걸어갈 수 있는 칸만 후보로 (가구에 막힌 칸 제외)
+const giftCells = floors.map((fl, fi) => {
+  const g = fl.g, H = g.length, seen = new Uint8Array(W * H), q = [];
+  for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) if (g[y][x] === 'stair') { seen[y * W + x] = 1; q.push(y * W + x); }
+  for (let i = 0; i < q.length; i++) { const x = q[i] % W, y = (q[i] / W) | 0;
+    for (const [dx, dy] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) { const nx = x + dx, ny = y + dy, k = ny * W + nx; if (nx >= 0 && ny >= 0 && nx < W && ny < H && !seen[k] && walk(g, nx, ny)) { seen[k] = 1; q.push(k); } } }
+  const out = [];
+  for (const k of q) { const x = k % W, y = (k / W) | 0, v = g[y][x];
+    if (v === 'stair') continue;
+    if (v === 'yard' && !(x >= 20 && x <= 92 && y >= 40 && y <= 95)) continue; // 바깥은 앞마당·운동장만
+    if (fi === 0 && y >= 38 && y <= 41 && v !== 'yard') continue;
+    out.push([x, y]); }
+  return out;
+});
+function makeGifts(seed) {
+  const rnd = rngOf(seed), items = [];
+  // 1층은 건물 안 절반, 앞마당·운동장 절반
+  const pools = [];
+  GIFT_PER_FLOOR.forEach((n, f) => {
+    if (f === 0) { const g = floors[0].g, inn = giftCells[0].filter(([x, y]) => g[y][x] !== 'yard'), out = giftCells[0].filter(([x, y]) => g[y][x] === 'yard'); pools.push([f, inn, Math.ceil(n / 2)], [f, out, Math.floor(n / 2)]); }
+    else pools.push([f, giftCells[f], n]);
+  });
+  pools.forEach(([f, c, n]) => {
+    const used = new Set();
+    for (let k = 0; k < n && used.size < c.length; k++) {
+      let j, tries = 0;
+      do { j = Math.floor(rnd() * c.length); tries++; } while ((used.has(j) || items.some(it => it.f === f && Math.abs(it.x - c[j][0]) + Math.abs(it.y - c[j][1]) < 8)) && tries < 60);
+      used.add(j); items.push({ f, x: c[j][0], y: c[j][1], v: 1 });
+    }
+  });
+  items[Math.floor(rnd() * items.length)].v = 3; // 황금 상자 1개
+  return items;
+}
+const giftMsg = () => ({ id: gift.id, seed: gift.seed, left: Math.max(1, Math.round(gift.end - performance.now() / 1000)), got: [...gift.taken] });
+function openGiftModal() {
+  if (gift) { toast('이미 이벤트 중이에요!'); return; }
+  const best = store2.get('bonwon_gift_best', 0);
+  $('giftBest').textContent = best ? `🏅 내 최고 기록: ${best}점` : '';
+  showModal('giftModal');
+}
+function startGift(id, seed, left, got, by) {
+  if (evac) stopEvac();
+  closeModals();
+  gift = { id, seed, end: performance.now() / 1000 + left, items: makeGifts(seed), taken: new Set(got || []), score: 0, mine: 0, by };
+  net.last = '';
+  $('giftBar').style.display = 'block';
+  updGiftBar();
+  const fade = $('fade'); fade.innerHTML = '<span class="count3">🎁 시작!</span>'; fade.style.opacity = .85;
+  setTimeout(() => { fade.style.opacity = 0; setTimeout(() => { fade.innerHTML = ''; }, 300); }, 900);
+  sys(by ? `🎁 ${esc(by)}님이 선물 찾기 이벤트를 시작했어요! 함께 찾아요.` : '🎁 선물 찾기 이벤트 시작! 3분 안에 상자를 많이 찾아요.');
+  toast('🎁 학교 곳곳에서 선물 상자를 찾아요!', 2400);
+  pickGifts();
+}
+function giftInvite(d, o) {
+  if (!started) return;
+  const id = strIn(d.id, 12), seed = Math.round(numIn(d.seed, 0, 2 ** 31)), left = Math.round(numIn(d.left, 0, GIFT_SEC));
+  if (!id || left < 3) return;
+  const got = Array.isArray(d.got) ? d.got.slice(0, 40).map(v => Math.round(numIn(v, 0, 39))) : [];
+  if (gift) { if (gift.id === id) { got.forEach(i => gift.taken.add(i)); updGiftBar(); } return; }
+  if (gift === null && giftInvite.left === id) return; // 내가 그만둔 이벤트에는 다시 끌려가지 않음
+  startGift(id, seed, left, got, o && o.n ? o.n : '친구');
+}
+function updGiftBar() {
+  if (!gift) return;
+  $('giftScore').textContent = `${gift.score}점`;
+  const per = FLOORS.map((f, i) => gift.items.filter((it, k) => it.f === i && !gift.taken.has(k)).length);
+  $('giftLeft').textContent = '남은 상자 ' + per.map((n, i) => `${FLOORS[i].name} ${n}`).join(' · ');
+}
+function giftTick() {
+  if (!gift) return;
+  const left = Math.max(0, gift.end - performance.now() / 1000), sec = Math.ceil(left);
+  $('giftTime').textContent = `${Math.floor(sec / 60)}:${String(sec % 60).padStart(2, '0')}`;
+  $('giftTime').style.color = sec <= 10 ? '#fff3a0' : '';
+  if (left <= 0) endGift('time');
+}
+function pickGifts() {
+  if (!gift || transitioning) return;
+  gift.items.forEach((it, i) => {
+    if (gift.taken.has(i) || it.f !== me.fi || Math.abs(it.x - me.tx) + Math.abs(it.y - me.ty) > 1) return;
+    gift.taken.add(i); gift.score += it.v; gift.mine++; net.last = '';
+    netSend('gift', { id: gift.id, i });
+    reaction = { e: it.v > 1 ? '🌟' : '🎁', t: 2.4 };
+    toast(it.v > 1 ? `🌟 황금 상자! +${it.v}점 (지금 ${gift.score}점)` : `🎁 +1점! (지금 ${gift.score}점)`, 1800);
+    updGiftBar();
+  });
+  if (gift.taken.size >= gift.items.length) endGift('all');
+}
+function drawGifts(ox, oy, s, now) {
+  if (!gift) return;
+  gift.items.forEach((it, i) => {
+    if (gift.taken.has(i) || it.f !== me.fi) return;
+    const cx = ox + (it.x + .5) * s, by = oy + (it.y + .55) * s - Math.abs(Math.sin(now * 3 + i)) * 5 * zoom, w = 18 * zoom, h = 14 * zoom;
+    const gold = it.v > 1, body = gold ? '#f4c430' : ['#ef476f', '#4f86d6', '#2fa36b', '#9a4fc0'][i % 4], rib = gold ? '#fff7c2' : '#ffe066';
+    if (gold) { ctx.fillStyle = `rgba(255,220,80,${.25 + .2 * Math.sin(now * 5)})`; ctx.beginPath(); ctx.arc(cx, by, 18 * zoom, 0, 7); ctx.fill(); }
+    ctx.fillStyle = 'rgba(0,0,0,.22)'; ctx.beginPath(); ctx.ellipse(cx, oy + (it.y + .85) * s, 9 * zoom, 3 * zoom, 0, 0, 7); ctx.fill();
+    ctx.fillStyle = body; ctx.fillRect(cx - w / 2, by - h / 2, w, h);
+    ctx.fillStyle = 'rgba(0,0,0,.15)'; ctx.fillRect(cx - w / 2, by + h / 2 - 3 * zoom, w, 3 * zoom);
+    ctx.fillStyle = body; ctx.fillRect(cx - w / 2 - 2 * zoom, by - h / 2 - 4 * zoom, w + 4 * zoom, 5 * zoom);
+    ctx.fillStyle = rib; ctx.fillRect(cx - 2 * zoom, by - h / 2 - 4 * zoom, 4 * zoom, h + 4 * zoom);
+    ctx.beginPath(); ctx.ellipse(cx - 4 * zoom, by - h / 2 - 6 * zoom, 4 * zoom, 2.5 * zoom, -.5, 0, 7); ctx.ellipse(cx + 4 * zoom, by - h / 2 - 6 * zoom, 4 * zoom, 2.5 * zoom, .5, 0, 7); ctx.fill();
+  });
+  // 이 층에 상자가 없으면 다른 층을 알려 주는 표시는 이벤트 띠의 '남은 상자'로 대신
+}
+function stopGift(quiet) {
+  if (!gift) return;
+  giftInvite.left = gift.id;
+  gift = null; net.last = '';
+  $('giftBar').style.display = 'none';
+  if (!quiet) toast('이벤트를 그만했어요');
+}
+function endGift(why) {
+  if (!gift) return;
+  const g = gift, list = [{ n: me.name, sc: g.score, me: true }, ...namedOthers().filter(o => o.ev === g.id).map(o => ({ n: o.n, sc: o.sc }))].sort((a, b) => b.sc - a.sc);
+  const myRank = list.findIndex(x => x.me) + 1;
+  stopGift(true); giftInvite.left = g.id;
+  const best = store2.get('bonwon_gift_best', 0), newBest = g.score > best;
+  if (newBest) store2.set('bonwon_gift_best', g.score);
+  $('giftTitle').textContent = why === 'all' ? '모든 선물을 찾았어요!' : '시간 끝!';
+  $('giftMedal').textContent = list.length > 1 ? (['🥇', '🥈', '🥉'][myRank - 1] || '🎖️') : (g.score >= 10 ? '🏆' : g.score >= 5 ? '🥇' : '🎁');
+  $('giftResult').innerHTML = `<b>${esc(me.name)}</b> 님은 상자 <b>${g.mine}개</b>로 <b>${g.score}점</b>을 얻었어요${list.length > 1 ? ` · <b>${myRank}등</b>` : ''}!${newBest ? '<br>🎉 내 최고 기록이에요!' : ''}`;
+  const ol = $('giftRank'); ol.innerHTML = '';
+  if (list.length > 1) list.slice(0, 10).forEach((x, i) => { const li = document.createElement('li'); li.className = x.me ? 'me' : ''; li.innerHTML = `<span>${['🥇', '🥈', '🥉'][i] || i + 1 + '.'}</span><span></span><b>${x.sc}점</b>`; li.children[1].textContent = x.n; ol.appendChild(li); });
+  reaction = { e: '🎉', t: 2.4 };
+  sys(`🎁 이벤트 끝! ${g.score}점${list.length > 1 ? ` (${myRank}등 / ${list.length}명)` : ''}`);
+  showModal('giftDone');
+}
+function hostGift() {
+  const id = Math.random().toString(36).slice(2, 10), seed = Math.floor(Math.random() * 2 ** 31);
+  giftInvite.left = null;
+  startGift(id, seed, GIFT_SEC, [], null);
+  netSend('ev', giftMsg());
+}
+$('bGift').onclick = openGiftModal;
+$('giftGo').onclick = hostGift;
+$('giftAgain').onclick = () => { closeModals(); hostGift(); };
+$('giftStop').onclick = () => { if (confirm('이벤트를 그만할까요? 지금까지 점수는 사라져요.')) stopGift(); };
 
 // ---------------- 외벽 도색 공사 ----------------
 const paint = { mode: 'now', day: 0, timer: null, lastWarn: 0, dKey: '', danger: new Set() };
@@ -1474,13 +1636,13 @@ if (innerWidth < 760) { $('paint').classList.add('fold'); $('pToggle').textConte
 const P2P_APP = 'bonwon-metaverse-v1';
 const ROOM = (location.hash.slice(1).match(/^[a-z0-9-]{1,32}$/i) || ['bonwon'])[0].toLowerCase();
 const others = new Map();
-const net = { tr: null, st: null, say: null, emo: null, last: '', t: 0, hb: 0 };
+const net = { tr: null, st: null, say: null, emo: null, ev: null, gift: null, last: '', t: 0, hb: 0 };
 const sheets = new Map();
 function sheetOf(h, sh) { const k = h + '|' + sh; if (!sheets.has(k)) sheets.set(k, sheetFor({ hair: HAIR[h], shirt: SHIRT[sh], skin: look.skin })); return sheets.get(k); }
 const numIn = (v, a, b) => (typeof v === 'number' && isFinite(v)) ? Math.min(b, Math.max(a, v)) : a;
 const strIn = (v, n) => typeof v === 'string' ? v.replace(/[\u0000-\u001f\u007f]/g, '').trim().slice(0, n) : '';
 const namedOthers = () => [...others.values()].filter(o => o.n);
-function myState() { return { n: me.name, h: Math.max(0, HAIR.indexOf(look.hair)), s: Math.max(0, SHIRT.indexOf(look.shirt)), f: me.fi, x: Math.round(me.x * 100) / 100, y: Math.round(me.y * 100) / 100, d: DIRS.indexOf(me.dir), m: me.moving ? 1 : 0 }; }
+function myState() { return { n: me.name, h: Math.max(0, HAIR.indexOf(look.hair)), s: Math.max(0, SHIRT.indexOf(look.shirt)), f: me.fi, x: Math.round(me.x * 100) / 100, y: Math.round(me.y * 100) / 100, d: DIRS.indexOf(me.dir), m: me.moving ? 1 : 0, ev: gift ? gift.id : '', sc: gift ? gift.score : 0 }; }
 function netSend(kind, data) { const a = net[kind]; if (a && started) a.send(data).catch(() => {}); }
 function netTick(dt) {
   const now = performance.now();
@@ -1546,7 +1708,7 @@ async function connectNet() {
   try { mod = await import('./trystero-0.26.0.mjs'); } catch { sys('혼자 둘러보기 모드예요. (인터넷 주소로 열면 여러 명이 함께 들어올 수 있어요)'); return; }
   try { net.tr = mod.joinRoom({ appId: P2P_APP }, ROOM); } catch { sys('함께 접속 연결에 실패해 혼자 둘러보기 모드로 바뀌었어요.'); return; }
   const tr = net.tr;
-  net.st = tr.makeAction('st'); net.say = tr.makeAction('say'); net.emo = tr.makeAction('emo');
+  net.st = tr.makeAction('st'); net.say = tr.makeAction('say'); net.emo = tr.makeAction('emo'); net.ev = tr.makeAction('ev'); net.gift = tr.makeAction('gift');
   const pid = (ctx) => (ctx && typeof ctx === 'object') ? ctx.peerId : ctx;
   net.st.onMessage = (d, ctx) => {
     const id = pid(ctx); if (!id || !d || typeof d !== 'object') return;
@@ -1557,6 +1719,7 @@ async function connectNet() {
     o.tx = numIn(d.x, 0, W - 1); o.ty = numIn(d.y, 0, floors[f].H - 1);
     if (first || f !== o.f) { o.x = o.tx; o.y = o.ty; }
     o.f = f; o.d = Math.round(numIn(d.d, 0, 3)); o.m = d.m ? 1 : 0;
+    o.ev = strIn(d.ev, 12); o.sc = Math.round(numIn(d.sc, 0, 999));
     if (first) { sys(`${esc(n)}님이 들어왔어요.`); toast(`👋 ${n}님이 들어왔어요`); }
     if (first || oldName !== n || oldF !== f || oldLook !== o.h + '|' + o.s) updPeople();
   };
@@ -1572,7 +1735,15 @@ async function connectNet() {
     const e = EMO[Math.round(numIn(d.e, 0, EMO.length - 1))];
     o.seen = performance.now(); o.reaction = { e, t: 2.4 };
   };
-  tr.onPeerJoin = (id) => { net.last = ''; if (started) net.st.send(myState(), { target: id }).catch(() => {}); };
+  net.ev.onMessage = (d, ctx) => { const o = others.get(pid(ctx)); if (d && typeof d === 'object') giftInvite(d, o); };
+  net.gift.onMessage = (d, ctx) => {
+    const o = others.get(pid(ctx)); if (!gift || !d || d.id !== gift.id) return;
+    const i = Math.round(numIn(d.i, -1, gift.items.length - 1)); if (i < 0 || gift.taken.has(i)) return;
+    gift.taken.add(i);
+    if (o && o.n) sys(`${esc(o.n)}님이 ${gift.items[i].v > 1 ? '황금 상자' : '선물 상자'}를 찾았어요! (${FLOORS[gift.items[i].f].name})`);
+    updGiftBar(); if (gift.taken.size >= gift.items.length) endGift('all');
+  };
+  tr.onPeerJoin = (id) => { net.last = ''; if (started) net.st.send(myState(), { target: id }).catch(() => {}); if (gift && started) net.ev.send(giftMsg(), { target: id }).catch(() => {}); };
   tr.onPeerLeave = (id) => dropPeer(id);
   addEventListener('pagehide', () => { try { tr.leave(); } catch {} });
   sys(ROOM === 'bonwon' ? '함께 둘러보기 연결 중이에요. 같은 주소로 들어온 사람이 보여요.' : `'${esc(ROOM)}' 방에 연결 중이에요. 같은 방 주소로 들어온 사람이 보여요.`);
