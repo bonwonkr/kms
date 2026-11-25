@@ -125,6 +125,16 @@
   .rank li:nth-child(odd) { background: #f6f7fa; }
   .rank li.me { background: #eceafd; font-weight: 800; }
   .rank li b { margin-left: auto; color: var(--purple); }
+  /* OX 퀴즈 대회 */
+  #oxBox { position: fixed; top: 110px; left: calc(52px + (100vw - 52px) / 2); transform: translateX(-50%); width: min(520px, calc(100vw - 76px)); background: rgba(255,255,255,.97); border-radius: 18px; box-shadow: 0 8px 28px rgba(0,0,0,.3); padding: 12px 16px 14px; display: none; z-index: 6; text-align: center; }
+  #oxBox .oh { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 800; color: #6b7180; }
+  #oxBox .oh b { color: var(--purple); }
+  #oxBox .oh button { margin-left: auto; color: #8a90a0; font-size: 12px; font-weight: 700; }
+  #oxQ { font-size: 19px; font-weight: 800; color: var(--ink); margin: 6px 0 4px; line-height: 1.45; word-break: keep-all; }
+  #oxSub { font-size: 13px; color: #5b6170; line-height: 1.5; word-break: keep-all; }
+  #oxSub .o { color: #1c7ed6; font-weight: 900; } #oxSub .x { color: #e03131; font-weight: 900; }
+  #oxTime { font-size: 30px; font-weight: 900; color: var(--purple); line-height: 1.1; margin-top: 4px; }
+  #oxTime.hurry { color: #e03131; }
   .count3 { font-size: 64px; font-weight: 900; color: #fff; text-shadow: 0 4px 20px rgba(0,0,0,.5); }
   .qopt { text-align: left; }
   .tips { text-align: left; margin: 0 0 10px; padding-left: 20px; color: #3b4150; font-size: 14px; line-height: 1.7; }
@@ -171,6 +181,7 @@
 <nav id="side">
   <button class="ib" id="bMenu" title="층 바로가기"><svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
   <button class="ib" id="bPaint" title="외벽 도색 공사"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="14" height="6" rx="1"/><path d="M17 6h3v5h-8v3"/><rect x="10" y="14" width="4" height="7" rx="1"/></svg></button>
+  <button class="ib" id="bOX" title="OX 퀴즈 대회" style="color:#1c7ed6;font-weight:900;font-size:13px;letter-spacing:-1px">OX</button>
   <button class="ib" id="bGift" title="선물 찾기 이벤트" style="color:#e8590c"><svg viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="5" rx="1"/><path d="M5 13v8h14v-8M12 8v13M12 8c-1.5-4-6-4-6-1.5S10 8 12 8zM12 8c1.5-4 6-4 6-1.5S14 8 12 8z"/></svg></button>
   <button class="ib" id="bEvac" title="화재 대피 훈련" style="color:#e5383b"><svg viewBox="0 0 24 24"><path d="M12 3l9 16H3z"/><path d="M12 10v4M12 17h.01"/></svg></button>
   <div class="sp"></div>
@@ -235,6 +246,9 @@
 <div id="giftBar">🎁 선물 찾기 · <span id="giftScore">0점</span> · 남은 시간 <span id="giftTime">3:00</span><button id="giftStop">그만하기</button><small id="giftLeft"></small></div>
 <div class="modal" id="giftModal"><div class="box"><div class="medal">🎁</div><h2>선물 상자 찾기 이벤트</h2><p>학교 곳곳(1~5층, 운동장)에 숨은 <b>선물 상자</b>를 3분 안에 많이 찾아요! 상자 위로 걸어가면 열려요.<br>🎁 1점 · <b style="color:#d9a441">황금 상자 3점</b><br>같은 방에 있는 사람도 함께 참여해요. 먼저 연 사람이 가져가요!</p><button class="pbtn" id="giftGo">이벤트 시작!</button><p id="giftBest" style="font-size:12px;margin:10px 0 0"></p><button class="pbtn gray" data-close>닫기</button></div></div>
 <div class="modal" id="giftDone"><div class="box cert"><div class="medal" id="giftMedal">🏆</div><h2 id="giftTitle">이벤트 끝!</h2><p id="giftResult"></p><ol class="rank" id="giftRank"></ol><button class="pbtn" id="giftAgain">한 번 더!</button><button class="pbtn gray" data-close>닫기</button></div></div>
+<div id="oxBox"><div class="oh"><span id="oxNo">OX 퀴즈 대회</span><span>· 내 점수 <b id="oxScore">0</b></span><button id="oxStop">그만하기</button></div><div id="oxQ"></div><div id="oxSub"></div><div id="oxTime"></div></div>
+<div class="modal" id="oxModal"><div class="box"><div class="medal"><span style="color:#1c7ed6">O</span><span style="color:#e03131">X</span></div><h2>OX 퀴즈 대회</h2><p>모두 <b>운동장</b>으로 모여요! 문제가 나오면 시간 안에<br><b style="color:#1c7ed6">맞으면 왼쪽 O 구역</b>, <b style="color:#e03131">틀리면 오른쪽 X 구역</b>으로 달려가요.<br>문제는 10개, 한 문제에 10초예요. 같은 방에 있는 사람과 함께 시작해요.</p><button class="pbtn" id="oxGo">대회 시작!</button><p id="oxBest" style="font-size:12px;margin:10px 0 0"></p><button class="pbtn gray" data-close>닫기</button></div></div>
+<div class="modal" id="oxDone"><div class="box cert"><div class="medal" id="oxMedal">🏆</div><h2>OX 퀴즈 대회 끝!</h2><p id="oxResult"></p><ol class="rank" id="oxRank"></ol><button class="pbtn" id="oxAgain">한 번 더!</button><button class="pbtn gray" data-close>닫기</button></div></div>
 <div class="modal" id="evacModal"><div class="box"><h2>🚨 화재 대피 훈련</h2><p>불이 났다고 생각하고, 바닥의 <b style="color:#1e9e57">초록 화살표</b>를 따라 계단으로 내려가 운동장까지 대피해요. 승강기는 타지 않아요.</p><div class="floorList"><button class="pbtn" id="evac5">5층 6-1 교실에서 시작</button><button class="pbtn" id="evacHere">지금 있는 곳에서 시작</button></div><button class="pbtn gray" data-close>취소</button></div></div>
 <div class="modal" id="evacDone"><div class="box"><h2>✅ 대피 완료!</h2><p id="evacResult"></p>
   <ul class="tips"><li>"불이야!" 크게 외치고 비상벨을 눌러요.</li><li>젖은 수건으로 입과 코를 막고 낮은 자세로 이동해요.</li><li>승강기 대신 계단을 이용해요.</li><li>뛰거나 밀지 말고 선생님 안내에 따라요.</li><li>운동장에 모이면 선생님께 인원을 확인받아요.</li></ul>
@@ -1041,7 +1055,7 @@ function update(dt) {
   prompt = null;
   if (!me.moving) {
     if (cell === 'stair') prompt = { t: '계단 이용하기', a: openStairs };
-    else if (quizAt(r)) prompt = { t: '퀴즈 풀기', a: () => openQuiz(norm(r.label)) };
+    else if (!oxq && quizAt(r)) prompt = { t: '퀴즈 풀기', a: () => openQuiz(norm(r.label)) };
     else if (r && LINKS[norm(r.label)]) prompt = { t: `${norm(r.label)} 열기`, a: () => window.open(LINKS[norm(r.label)], '_blank', 'noopener') };
   }
   if (evac) { const sec = Math.floor((performance.now() - evac.t0) / 1000); $('evacTime').textContent = `${Math.floor(sec / 60)}:${String(sec % 60).padStart(2, '0')}`; }
@@ -1049,6 +1063,7 @@ function update(dt) {
   if (reaction && (reaction.t -= dt) <= 0) reaction = null;
   netTick(dt);
   giftTick();
+  oxTick();
 }
 
 // 층 이동
@@ -1101,6 +1116,7 @@ function render() {
   const now = performance.now() / 1000;
   drawPaint(ox, oy, s, now);
   drawGifts(ox, oy, s, now);
+  drawOX(ox, oy, s, now);
   // 대피 화살표
   if (evac && evac.path && evac.path.length > 1) {
     const P = evac.path;
@@ -1116,7 +1132,7 @@ function render() {
     ctx.fillText(me.fi > 0 ? '⬇️' : '🏁', ox + (gx + .5) * s, oy + (gy + .3) * s - Math.abs(Math.sin(now * 3)) * 6);
   }
   // 퀴즈 표시
-  for (const r of fl.rooms) if (quizAt(r)) {
+  for (const r of fl.rooms) if (!oxq && quizAt(r)) {
     const north = !!r.north && !r.small;
     const qx = ox + (r.x + r.w / 2) * s, qy = oy + (r.small || r.side || r.type === 'yard' || r.type === 'lib' ? r.y + r.h / 2 - 1.2 : north ? r.y + r.h - 1.9 : r.y + 1.9) * s + Math.sin(now * 3 + r.x) * 3;
     const rad = 9 + 2 * zoom;
@@ -1330,6 +1346,7 @@ function updEvacTxt() { $('evacTxt').textContent = me.fi > 0 ? `${FLOORS[me.fi].
 function startEvac(from5) {
   closeModals(); path = [];
   if (gift) stopGift(true);
+  if (oxq) stopOX(true);
   const go = () => {
     evac = { t0: performance.now(), path: [], asked: false };
     evac.path = evacPath() || []; updEvacTxt();
@@ -1352,7 +1369,7 @@ $('bEvac').onclick = () => showModal('evacModal');
 $('evacHere').onclick = () => startEvac(false);
 $('evac5').onclick = () => startEvac(true);
 $('evacStop').onclick = () => { stopEvac(); toast('대피 훈련을 그만했어요'); };
-[['🎁 선물 찾기 이벤트', openGiftModal], ['🚨 화재 대피 훈련', () => showModal('evacModal')]].forEach(([t, fn]) => { const b = document.createElement('button'); b.textContent = t; b.onclick = () => { hidePops(); fn(); }; $('appsPop').appendChild(b); });
+[['⭕ OX 퀴즈 대회', openOXModal], ['🎁 선물 찾기 이벤트', openGiftModal], ['🚨 화재 대피 훈련', () => showModal('evacModal')]].forEach(([t, fn]) => { const b = document.createElement('button'); b.textContent = t; b.onclick = () => { hidePops(); fn(); }; $('appsPop').appendChild(b); });
 
 // ---------------- 미니게임: 선물 상자 찾기 이벤트 ----------------
 // 시작한 사람이 정한 번호(seed)로 모두가 같은 자리에 상자를 놓고, 먼저 연 사람이 가져감
@@ -1402,6 +1419,7 @@ function openGiftModal() {
 }
 function startGift(id, seed, left, got, by) {
   if (evac) stopEvac();
+  if (oxq) stopOX(true);
   closeModals();
   gift = { id, seed, end: performance.now() / 1000 + left, items: makeGifts(seed), taken: new Set(got || []), score: 0, mine: 0, by };
   net.last = '';
@@ -1496,6 +1514,174 @@ $('bGift').onclick = openGiftModal;
 $('giftGo').onclick = hostGift;
 $('giftAgain').onclick = () => { closeModals(); hostGift(); };
 $('giftStop').onclick = () => { if (confirm('이벤트를 그만할까요? 지금까지 점수는 사라져요.')) stopGift(); };
+
+// ---------------- 미니게임: OX 퀴즈 대회 ----------------
+// 운동장 왼쪽 = O, 오른쪽 = X. 시간이 끝났을 때 서 있는 구역으로 답을 정함
+// 문제 고치기: [분류('학교' 또는 '안전'), 문제, 정답(true=O / false=X), 풀이]
+// 학교 문제는 2026학년도 교실 배치도(위 FLOORS)를 바탕으로 만들었어요. 배치가 바뀌면 함께 고쳐 주세요.
+const OX_BANK = [
+  ['학교', '보건실은 1층에 있어요.', true, '보건실은 1층 본관, 행정실 가까이에 있어요.'],
+  ['학교', '행정실은 3층에 있어요.', false, '행정실은 1층에 있어요.'],
+  ['학교', '교무실은 2층에 있어요.', true, '교무실은 2층 본관에 있어요.'],
+  ['학교', '학교 도서관은 1층 서관에 있어요.', true, '1층 서관 전체가 학교 도서관이에요.'],
+  ['학교', '급식실은 5층에 있어요.', false, '급식실은 1층 북동쪽 별관에 있어요.'],
+  ['학교', '본원초 체육관의 이름은 ‘본원한울터’예요.', true, '운동장 남서쪽에 있는 체육관이에요.'],
+  ['학교', '6학년 교실은 5층에 있어요.', true, '6학년 1반~6반 교실은 5층에 있어요.'],
+  ['학교', '1학년 1반 교실은 4층에 있어요.', false, '1학년 1반 교실은 1층에 있어요.'],
+  ['학교', '방송실은 2층에 있어요.', true, '방송실은 2층 교무실 옆에 있어요.'],
+  ['학교', '컴퓨터 1실은 2층에 있어요.', true, '컴퓨터 1실은 2층, 컴퓨터 2실은 5층에 있어요.'],
+  ['학교', '음악 1실은 1층에 있어요.', false, '음악 1실은 5층 서관에 있어요.'],
+  ['학교', '과학 1실은 1층에 있어요.', true, '과학 1실은 1층, 과학 2실은 2층에 있어요.'],
+  ['학교', '영어 1실은 3층에 있어요.', true, '영어 1실과 영어 2실은 3층에 있어요.'],
+  ['학교', '본원초 건물은 6층까지 있어요.', false, '본원초 건물은 1층부터 5층까지예요.'],
+  ['학교', '본관과 서관이 이어져 ‘ㅏ’자 모양을 하고 있어요.', true, '서관이 남북으로 길고, 본관이 동쪽으로 길게 붙어 있어요.'],
+  ['안전', '불이 나면 승강기를 타고 빨리 내려가요.', false, '불이 나면 승강기 대신 계단으로 대피해요.'],
+  ['안전', '불을 발견하면 “불이야!” 하고 크게 외치고 비상벨을 눌러요.', true, '주변에 빨리 알리는 것이 먼저예요.'],
+  ['안전', '연기가 날 때는 몸을 낮추고 젖은 수건으로 코와 입을 막고 대피해요.', true, '연기는 위로 올라가서 낮은 곳이 더 안전해요.'],
+  ['안전', '대피할 때는 친구보다 먼저 나가려고 뛰고 밀어도 돼요.', false, '뛰거나 밀지 말고 선생님 안내에 따라요.'],
+  ['안전', '운동장에 대피하면 선생님께 인원을 확인받아요.', true, '모두 안전하게 나왔는지 확인해요.'],
+  ['안전', '지진으로 흔들릴 때는 책상 아래로 들어가 머리를 보호해요.', true, '흔들림이 멈추면 운동장처럼 넓은 곳으로 대피해요.'],
+  ['안전', '복도와 계단에서는 오른쪽으로 천천히 걸어요.', true, '뛰지 않고 우측으로 다녀요.'],
+  ['안전', '횡단보도의 초록불이 깜빡이면 뛰어서 건너요.', false, '깜빡이면 다음 신호를 기다려요.'],
+  ['안전', '모르는 사람이 맛있는 것을 준다며 따라오라고 하면 따라가요.', false, '“싫어요!” 하고 어른에게 바로 알려요.'],
+  ['안전', '우리 집 주소와 전화번호는 인터넷에 올려도 괜찮아요.', false, '개인정보는 함부로 알려 주지 않아요.'],
+  ['안전', '위급할 때 119에 전화해요.', true, '119는 화재·구조·구급 신고 번호예요.'],
+  ['안전', '자전거를 탈 때는 안전모를 써요.', true, '머리를 보호하는 안전모는 꼭 써요.'],
+  ['안전', '전기 콘센트에 젓가락이나 핀을 넣어도 괜찮아요.', false, '감전될 수 있어 아주 위험해요.'],
+  ['안전', '물놀이 전에는 준비운동을 해요.', true, '준비운동을 하면 다리에 쥐가 나는 것을 막을 수 있어요.'],
+  ['안전', '그네가 움직일 때 바로 앞을 지나가도 괜찮아요.', false, '그네 앞뒤로 지나가면 부딪힐 수 있어요.'],
+];
+const OX_N = 10, OX_INTRO = 6, OX_ASK = 10, OX_SHOW = 5;
+const OX_ZONE = { o: [26, 57], x: [61, 92], y: [54, 94] };
+let oxq = null;
+function oxZone() {
+  if (me.fi !== 0) return null;
+  if (me.ty < OX_ZONE.y[0] || me.ty > OX_ZONE.y[1]) return null;
+  if (me.tx >= OX_ZONE.o[0] && me.tx <= OX_ZONE.o[1]) return 'o';
+  if (me.tx >= OX_ZONE.x[0] && me.tx <= OX_ZONE.x[1]) return 'x';
+  return null;
+}
+function oxPick(seed) { // 학교 문제 절반 + 안전 문제 절반을 섞어서
+  const r = rngOf(seed), mix = (a) => { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(r() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+  const idx = (t) => mix(OX_BANK.map((q, i) => i).filter(i => OX_BANK[i][0] === t));
+  const half = Math.ceil(OX_N / 2);
+  return mix([...idx('학교').slice(0, half), ...idx('안전').slice(0, OX_N - half)]);
+}
+const oxMsg = () => ({ id: oxq.id, seed: oxq.seed, el: Math.round((performance.now() / 1000 - oxq.t0) * 10) / 10 });
+function openOXModal() {
+  if (oxq) { toast('이미 OX 퀴즈 대회 중이에요!'); return; }
+  const best = store2.get('bonwon_ox_best', 0);
+  $('oxBest').textContent = best ? `🏅 내 최고 기록: ${best}문제 정답` : '';
+  showModal('oxModal');
+}
+function goField() {
+  path = []; held = []; curRoom = undefined;
+  if (me.fi !== 0) { me.fi = 0; $('mapName').textContent = '본원초등학교 1층'; }
+  const g = floors[0].g;
+  for (let k = 0; k < 40; k++) { const x = 55 + Math.floor(Math.random() * 9), y = 70 + Math.floor(Math.random() * 6); if (walk(g, x, y)) { me.tx = me.x = x; me.ty = me.y = y; break; } }
+  me.moving = false; me.dir = 'up'; cam.x = me.x; cam.y = me.y; follow = true; net.last = '';
+}
+function startOX(id, seed, el, by) {
+  if (evac) stopEvac();
+  if (gift) stopGift(true);
+  closeModals();
+  oxq = { id, seed, t0: performance.now() / 1000 - el, qs: oxPick(seed), score: 0, asked: new Set(), judged: new Set(), by, last: '' };
+  goField();
+  zoom = Math.min(zoom, 1); // 운동장 O·X 구역이 한눈에 보이도록
+  $('oxBox').style.display = 'block'; $('oxScore').textContent = '0';
+  sys(by ? `⭕ ${esc(by)}님이 OX 퀴즈 대회를 열었어요! 운동장으로 모였어요.` : '⭕ OX 퀴즈 대회 시작! 운동장 왼쪽은 O, 오른쪽은 X예요.');
+  oxTick();
+}
+function oxInvite(d, o) {
+  if (!started) return;
+  const id = strIn(d.id, 12), seed = Math.round(numIn(d.seed, 0, 2 ** 31)), el = numIn(d.el, -5, 600);
+  if (!id || el > OX_INTRO + OX_N * (OX_ASK + OX_SHOW) - 3) return;
+  if (oxq || oxInvite.left === id) return;
+  startOX(id, seed, el, o && o.n ? o.n : '친구');
+}
+function oxPhase() {
+  const el = performance.now() / 1000 - oxq.t0;
+  if (el < OX_INTRO) return { p: 'intro', left: OX_INTRO - el };
+  const k = Math.floor((el - OX_INTRO) / (OX_ASK + OX_SHOW));
+  if (k >= OX_N) return { p: 'end' };
+  const w = (el - OX_INTRO) - k * (OX_ASK + OX_SHOW);
+  return w < OX_ASK ? { p: 'ask', k, left: OX_ASK - w } : { p: 'show', k, left: OX_ASK + OX_SHOW - w };
+}
+function oxTick() {
+  if (!oxq) return;
+  const ph = oxPhase(), q = ph.k !== undefined ? OX_BANK[oxq.qs[ph.k]] : null, z = oxZone();
+  const zoneTxt = me.fi !== 0 ? '⚠️ 1층 운동장으로 가야 해요!' : z === 'o' ? '지금 <span class="o">O 구역</span>에 있어요' : z === 'x' ? '지금 <span class="x">X 구역</span>에 있어요' : '가운데 선이나 운동장 밖이에요. O나 X 구역으로 가요!';
+  if (ph.p === 'end') { endOX(); return; }
+  let no, qt, sub, tm, hurry = false;
+  if (ph.p === 'intro') { no = 'OX 퀴즈 대회'; qt = '곧 첫 문제가 나와요!'; sub = '<span class="o">O</span>는 운동장 왼쪽, <span class="x">X</span>는 오른쪽이에요.'; tm = Math.ceil(ph.left); }
+  else if (ph.p === 'ask') {
+    oxq.asked.add(ph.k);
+    no = `문제 ${ph.k + 1} / ${OX_N}`; no += ` · ${q[0]}`; qt = q[1]; sub = zoneTxt; tm = Math.ceil(ph.left); hurry = ph.left <= 3;
+  } else {
+    if (!oxq.judged.has(ph.k)) { // 시간이 끝난 순간 한 번만 채점
+      oxq.judged.add(ph.k);
+      if (oxq.asked.has(ph.k)) {
+        const ok = (z === 'o') === q[2] && z !== null;
+        if (ok) { oxq.score++; net.last = ''; reaction = { e: '⭕', t: 2.4 }; toast(`정답! (${oxq.score}점)`, 1600); }
+        else { reaction = { e: '❌', t: 2.4 }; toast(z === null ? '구역 밖이라 오답이에요' : '아쉬워요, 오답!', 1600); }
+        oxq.lastOk = ok;
+      } else oxq.lastOk = null;
+      const right = namedOthers().filter(o => o.oi === oxq.id && o.f === 0 && o.ty >= OX_ZONE.y[0] && o.ty <= OX_ZONE.y[1] && (q[2] ? o.tx >= OX_ZONE.o[0] && o.tx <= OX_ZONE.o[1] : o.tx >= OX_ZONE.x[0] && o.tx <= OX_ZONE.x[1])).length + (oxq.lastOk ? 1 : 0);
+      const all = namedOthers().filter(o => o.oi === oxq.id).length + 1;
+      oxq.lastRight = `${all}명 중 ${right}명 정답`;
+      $('oxScore').textContent = oxq.score;
+    }
+    no = `문제 ${ph.k + 1} / ${OX_N} · ${oxq.lastRight}`; qt = `정답은 ${q[2] ? '<span style="color:#1c7ed6">O</span>' : '<span style="color:#e03131">X</span>'}! ${oxq.lastOk === true ? '🎉' : oxq.lastOk === false ? '😢' : ''}`;
+    sub = esc(q[3]); tm = ph.k + 1 < OX_N ? `다음 문제까지 ${Math.ceil(ph.left)}` : '';
+  }
+  const key = [no, qt, sub, tm, hurry].join('|');
+  if (key === oxq.last) return; oxq.last = key;
+  $('oxNo').textContent = no; $('oxQ').innerHTML = ph.p === 'show' ? qt : esc(qt); $('oxSub').innerHTML = sub;
+  $('oxTime').textContent = tm; $('oxTime').classList.toggle('hurry', hurry); $('oxTime').style.fontSize = typeof tm === 'number' ? '' : '15px';
+}
+function drawOX(ox, oy, s, now) {
+  if (!oxq || me.fi !== 0) return;
+  const ph = oxPhase(), show = ph.p === 'show' ? OX_BANK[oxq.qs[ph.k]][2] : null;
+  const area = (x0, x1, col, ch, on) => {
+    const px = ox + x0 * s, py = oy + OX_ZONE.y[0] * s, w = (x1 - x0 + 1) * s, h = (OX_ZONE.y[1] - OX_ZONE.y[0] + 1) * s;
+    ctx.fillStyle = col.replace('A', on === false ? '.05' : on ? '.32' : '.16'); ctx.fillRect(px, py, w, h);
+    ctx.strokeStyle = col.replace('A', '.8'); ctx.lineWidth = 4; ctx.strokeRect(px + 2, py + 2, w - 4, h - 4);
+    ctx.font = `900 ${Math.round(Math.min(w, h) * .5)}px "Malgun Gothic",sans-serif`; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.fillStyle = col.replace('A', on === false ? '.15' : '.45'); ctx.fillText(ch, px + w / 2, py + h / 2);
+  };
+  area(OX_ZONE.o[0], OX_ZONE.o[1], 'rgba(28,126,214,A)', 'O', show === null ? undefined : show === true);
+  area(OX_ZONE.x[0], OX_ZONE.x[1], 'rgba(224,49,49,A)', 'X', show === null ? undefined : show === false);
+}
+function stopOX(quiet) {
+  if (!oxq) return;
+  oxInvite.left = oxq.id; oxq = null; net.last = '';
+  $('oxBox').style.display = 'none';
+  if (!quiet) toast('OX 퀴즈 대회를 그만했어요');
+}
+function endOX() {
+  const q = oxq, list = [{ n: me.name, sc: q.score, me: true }, ...namedOthers().filter(o => o.oi === q.id).map(o => ({ n: o.n, sc: o.os }))].sort((a, b) => b.sc - a.sc);
+  const myRank = list.filter(x => x.sc > q.score).length + 1;
+  stopOX(true);
+  const best = store2.get('bonwon_ox_best', 0), newBest = q.score > best;
+  if (newBest) store2.set('bonwon_ox_best', q.score);
+  $('oxMedal').textContent = list.length > 1 ? (['🥇', '🥈', '🥉'][myRank - 1] || '🎖️') : (q.score === OX_N ? '🏆' : q.score >= 7 ? '🥇' : '⭕');
+  $('oxResult').innerHTML = `<b>${esc(me.name)}</b> 님은 ${OX_N}문제 중 <b>${q.score}문제</b>를 맞혔어요${list.length > 1 ? ` · <b>${myRank}등</b>` : ''}!${q.score === OX_N ? '<br>💯 모두 맞혔어요!' : ''}${newBest ? '<br>🎉 내 최고 기록이에요!' : ''}`;
+  const ol = $('oxRank'); ol.innerHTML = '';
+  if (list.length > 1) list.slice(0, 10).forEach((x) => { const r = list.filter(y => y.sc > x.sc).length; const li = document.createElement('li'); li.className = x.me ? 'me' : ''; li.innerHTML = `<span>${['🥇', '🥈', '🥉'][r] || r + 1 + '.'}</span><span></span><b>${x.sc}문제</b>`; li.children[1].textContent = x.n; ol.appendChild(li); });
+  reaction = { e: '🎉', t: 2.4 };
+  sys(`⭕ OX 퀴즈 대회 끝! ${q.score}/${OX_N}${list.length > 1 ? ` (${myRank}등 / ${list.length}명)` : ''}`);
+  showModal('oxDone');
+}
+function hostOX() {
+  const id = Math.random().toString(36).slice(2, 10), seed = Math.floor(Math.random() * 2 ** 31);
+  oxInvite.left = null;
+  startOX(id, seed, 0, null);
+  netSend('ox', oxMsg());
+}
+$('bOX').onclick = openOXModal;
+$('oxGo').onclick = hostOX;
+$('oxAgain').onclick = () => { closeModals(); hostOX(); };
+$('oxStop').onclick = () => { if (confirm('OX 퀴즈 대회를 그만할까요?')) stopOX(); };
 
 // ---------------- 외벽 도색 공사 ----------------
 const paint = { mode: 'now', day: 0, timer: null, lastWarn: 0, dKey: '', danger: new Set() };
@@ -1636,13 +1822,13 @@ if (innerWidth < 760) { $('paint').classList.add('fold'); $('pToggle').textConte
 const P2P_APP = 'bonwon-metaverse-v1';
 const ROOM = (location.hash.slice(1).match(/^[a-z0-9-]{1,32}$/i) || ['bonwon'])[0].toLowerCase();
 const others = new Map();
-const net = { tr: null, st: null, say: null, emo: null, ev: null, gift: null, last: '', t: 0, hb: 0 };
+const net = { tr: null, st: null, say: null, emo: null, ev: null, gift: null, ox: null, last: '', t: 0, hb: 0 };
 const sheets = new Map();
 function sheetOf(h, sh) { const k = h + '|' + sh; if (!sheets.has(k)) sheets.set(k, sheetFor({ hair: HAIR[h], shirt: SHIRT[sh], skin: look.skin })); return sheets.get(k); }
 const numIn = (v, a, b) => (typeof v === 'number' && isFinite(v)) ? Math.min(b, Math.max(a, v)) : a;
 const strIn = (v, n) => typeof v === 'string' ? v.replace(/[\u0000-\u001f\u007f]/g, '').trim().slice(0, n) : '';
 const namedOthers = () => [...others.values()].filter(o => o.n);
-function myState() { return { n: me.name, h: Math.max(0, HAIR.indexOf(look.hair)), s: Math.max(0, SHIRT.indexOf(look.shirt)), f: me.fi, x: Math.round(me.x * 100) / 100, y: Math.round(me.y * 100) / 100, d: DIRS.indexOf(me.dir), m: me.moving ? 1 : 0, ev: gift ? gift.id : '', sc: gift ? gift.score : 0 }; }
+function myState() { return { n: me.name, h: Math.max(0, HAIR.indexOf(look.hair)), s: Math.max(0, SHIRT.indexOf(look.shirt)), f: me.fi, x: Math.round(me.x * 100) / 100, y: Math.round(me.y * 100) / 100, d: DIRS.indexOf(me.dir), m: me.moving ? 1 : 0, ev: gift ? gift.id : '', sc: gift ? gift.score : 0, oi: oxq ? oxq.id : '', os: oxq ? oxq.score : 0 }; }
 function netSend(kind, data) { const a = net[kind]; if (a && started) a.send(data).catch(() => {}); }
 function netTick(dt) {
   const now = performance.now();
@@ -1708,7 +1894,8 @@ async function connectNet() {
   try { mod = await import('./trystero-0.26.0.mjs'); } catch { sys('혼자 둘러보기 모드예요. (인터넷 주소로 열면 여러 명이 함께 들어올 수 있어요)'); return; }
   try { net.tr = mod.joinRoom({ appId: P2P_APP }, ROOM); } catch { sys('함께 접속 연결에 실패해 혼자 둘러보기 모드로 바뀌었어요.'); return; }
   const tr = net.tr;
-  net.st = tr.makeAction('st'); net.say = tr.makeAction('say'); net.emo = tr.makeAction('emo'); net.ev = tr.makeAction('ev'); net.gift = tr.makeAction('gift');
+  net.st = tr.makeAction('st'); net.say = tr.makeAction('say'); net.emo = tr.makeAction('emo'); net.ev = tr.makeAction('ev'); net.gift = tr.makeAction('gift'); net.ox = tr.makeAction('ox');
+  net.ox.onMessage = (d, ctx) => { const o = others.get(pid(ctx)); if (d && typeof d === 'object') oxInvite(d, o); };
   const pid = (ctx) => (ctx && typeof ctx === 'object') ? ctx.peerId : ctx;
   net.st.onMessage = (d, ctx) => {
     const id = pid(ctx); if (!id || !d || typeof d !== 'object') return;
@@ -1720,6 +1907,7 @@ async function connectNet() {
     if (first || f !== o.f) { o.x = o.tx; o.y = o.ty; }
     o.f = f; o.d = Math.round(numIn(d.d, 0, 3)); o.m = d.m ? 1 : 0;
     o.ev = strIn(d.ev, 12); o.sc = Math.round(numIn(d.sc, 0, 999));
+    o.oi = strIn(d.oi, 12); o.os = Math.round(numIn(d.os, 0, 99));
     if (first) { sys(`${esc(n)}님이 들어왔어요.`); toast(`👋 ${n}님이 들어왔어요`); }
     if (first || oldName !== n || oldF !== f || oldLook !== o.h + '|' + o.s) updPeople();
   };
@@ -1743,7 +1931,7 @@ async function connectNet() {
     if (o && o.n) sys(`${esc(o.n)}님이 ${gift.items[i].v > 1 ? '황금 상자' : '선물 상자'}를 찾았어요! (${FLOORS[gift.items[i].f].name})`);
     updGiftBar(); if (gift.taken.size >= gift.items.length) endGift('all');
   };
-  tr.onPeerJoin = (id) => { net.last = ''; if (started) net.st.send(myState(), { target: id }).catch(() => {}); if (gift && started) net.ev.send(giftMsg(), { target: id }).catch(() => {}); };
+  tr.onPeerJoin = (id) => { net.last = ''; if (started) net.st.send(myState(), { target: id }).catch(() => {}); if (gift && started) net.ev.send(giftMsg(), { target: id }).catch(() => {}); if (oxq && started) net.ox.send(oxMsg(), { target: id }).catch(() => {}); };
   tr.onPeerLeave = (id) => dropPeer(id);
   addEventListener('pagehide', () => { try { tr.leave(); } catch {} });
   sys(ROOM === 'bonwon' ? '함께 둘러보기 연결 중이에요. 같은 주소로 들어온 사람이 보여요.' : `'${esc(ROOM)}' 방에 연결 중이에요. 같은 방 주소로 들어온 사람이 보여요.`);
